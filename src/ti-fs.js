@@ -74,7 +74,7 @@ fs.existsSync = function existsSync(path) {
 };
 
 fs.readFile = function readFile(path, options, callback_) {
-	var callback = maybeCallback(arguments[arguments.length-1]);
+	var callback = maybeCallback(callback);
 	if (!options || util.isFunction(options)) {
 		options = { encoding: null, flag: 'r' };
 	} else if (util.isString(options)) {
@@ -127,7 +127,7 @@ fs.readFileSync = function readFileSync(path, options) {
 };
 
 fs.close = function close(fd, callback) {
-	callback = maybeCallback(arguments[arguments.length-1]);
+	callback = maybeCallback(callback);
 	setTimeout(function() {
 		var err = null;
 		try {
@@ -144,7 +144,7 @@ fs.closeSync = function closeSync(fd) {
 };
 
 fs.open = function open(path, flags, mode, callback) {
-	callback = maybeCallback(arguments[arguments.length-1]);
+	callback = maybeCallback(callback);
 	if (!mode || util.isFunction(mode)) {
 		mode = null;
 	}
@@ -176,7 +176,7 @@ fs.openSync = function openSync(path, flags, mode) {
 
 fs.read = function read(fd, buffer, offset, length, position, callback) {
 	// position is not handled in Titanium streams
-	callback = maybeCallback(arguments[arguments.length-1]);
+	callback = maybeCallback(callback);
 	if (util.isFunction(position)) { position = undefined; }
 	if (util.isFunction(length)) { length = undefined; }
 	if (util.isFunction(offset)) { offset = undefined; }
@@ -212,7 +212,7 @@ if (IS_ANDROID) {
 
 fs.write = function write(fd, data, offset, length, position, callback) {
 	// position is not handled in Titanium streams
-	callback = maybeCallback(arguments[arguments.length-1]);
+	callback = maybeCallback(callback);
 	if (util.isFunction(position)) { position = undefined; }
 	if (util.isFunction(length)) { length = undefined; }
 	if (util.isFunction(offset)) { offset = undefined; }
@@ -267,7 +267,7 @@ fs.renameSync = function renameSync(oldPath, newPath) {
 };
 
 fs.truncate = function truncate(path, len, callback) {
-	callback = maybeCallback(arguments[arguments.length-1]);
+	callback = maybeCallback(callback);
 	if (!len || util.isFunction(len)) {
 		len = 0;
 	}
@@ -307,7 +307,7 @@ fs.ftruncate = function ftruncate(fd, len, callback) {
 		throw new Error('invalid file descriptor');
 	}
 
-	callback = maybeCallback(arguments[arguments.length-1]);
+	callback = maybeCallback(callback);
 	if (!len || util.isFunction(len)) {
 		len = 0;
 	}
@@ -368,7 +368,7 @@ fs.rmdirSync = function rmdirSync(path) {
 
 if (IS_ANDROID) {
 	fs.mkdir = function mkdir(path, mode, callback) {
-		callback = maybeCallback(arguments[arguments.length-1]);
+		callback = maybeCallback(callback);
 		setTimeout(function() {
 			var err = null;
 			try {
@@ -384,7 +384,7 @@ if (IS_ANDROID) {
 	};
 } else {
 	fs.mkdir = function mkdir(path, mode, callback) {
-		callback = maybeCallback(arguments[arguments.length-1]);
+		callback = maybeCallback(callback);
 		setTimeout(function() {
 			var err = null;
 			try {
@@ -531,7 +531,7 @@ fs.unlinkSync = function unlinkSync(path) {
 };
 
 fs.writeFile = function writeFile(path, data, options, callback) {
-	callback = maybeCallback(arguments[arguments.length-1]);
+	callback = maybeCallback(callback);
 	if (!options || util.isFunction(options)) {
 		options = {};
 	}
@@ -560,7 +560,7 @@ fs.writeFileSync = function writeFileSync(path, data, options) {
 };
 
 fs.appendFile = function appendFile(path, data, options, callback_) {
-	var callback = maybeCallback(arguments[arguments.length-1]);
+	var callback = maybeCallback(callback_);
 	if (!options || util.isFunction(options)) {
 		options = {};
 	}
@@ -670,7 +670,7 @@ fs.realpathSync = function realpathSync(p, cache) {
 };
 
 fs.realpath = function realpath(p, cache, cb) {
-	cb = maybeCallback(arguments[arguments.length-1]);
+	cb = maybeCallback(cb);
 	if (!cache || util.isFunction(cache)) {
 		cache = {};
 	}
@@ -727,7 +727,7 @@ fs.fchownSync = function fchownSync(fd, uid, gid) {};
 fs.chown = function chown(path, uid, gid, callback) { return callback(); };
 fs.chownSync = function chownSync(path, uid, gid) {};
 fs.symlink = function symlink(destination, path, type_, callback) {
-	return maybeCallback(arguments[arguments.length-1])();
+	return maybeCallback(callback)();
 };
 fs.symlinkSync = function symlinkSync(destination, path, type) {};
 fs.link = function link(srcpath, dstpath, callback) { return callback(); };
